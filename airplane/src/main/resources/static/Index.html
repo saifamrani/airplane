@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>airplane</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+</head>
+
+<body>
+    <main>
+        <section>
+            <div class="container" style="width: 500px; height: 500 px; background-color:rgba(0,0,255,0.3);">
+                <form id="airplaneForm">
+                    <div>
+                        <h3>AirPlane</h3>
+                        <div>
+                            <label for="validationDefault01" class="form-label">Type Of Airplane</label>
+                            <input type="text" class="form-control" id="validationDefault01" required>
+                        </div>
+                        <div>
+                            <label for="validationDefault02" class="form-label">Airplane Identification Plate</label>
+                            <input type="text" class="form-control" id="validationDefault02" required>
+                        </div>
+                        <div>
+                            <label for="validationDefault03" class="form-label">Current AirField</label>
+                            <input type="text" class="form-control" id="validationDefault03" required>
+                        </div>
+                        <div>
+                            <label for="validationDefault04" class="form-label">Amount of Fuel</label>
+                            <input type="text" class="form-control" id="validationDefault04" required>
+                        </div>
+                        <br>
+                        <div>
+                            <button class="btn btn-primary" type="submit">Submit</button>
+                        </div>
+                </form>
+                <hr>
+                <h2>Delete Airplane</h2>
+                <form id="deleteForm" class="form-label">
+                    <div class="col-md-6">
+                        <label for="validationDefault033" class="form-label"> Ented The Id : </label>
+                        <input type="number" class="form-control" id="validationDefault033" required>
+                    </div>
+                    <br>
+                    <button id="deleteBtn" class="btn btn-primary" type="submit">submit</button>
+                </form>
+                </div>
+                <hr>
+                <button id="modalBtn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    Update Airplane
+                </button>
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Update Model</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="airplaneUpdateForm">
+                                    <div class="form-group">
+                                        <label for="personId">id</label>
+                                        <input type="number" min="0" class="form-control" id="personId" aria-describedby="personId" placeholder="Airplane Id">
+                                    </div>
+                                    <hr>
+                                    <div class="col-md-4">
+                                        <label for="validationDefault011" class="form-label">Type of Airplane</label>
+                                        <input type="text" class="form-control" id="validationDefault011" required>
+                                    </div>
+                                    <hr>
+                                    <div class="col-md-4">
+                                        <label for="validationDefault012" class="form-label">Airplane Identification Plate</label>
+                                        <input type="text" class="form-control" id="validationDefault012" required>
+                                    </div>
+                                    <hr>
+                                    <div class="col-md-6">
+                                        <label for="validationDefault044" class="form-label">Current Airfield</label>
+                                        <input type="text" class="form-control" id="validationDefault044" required>
+                                    </div>
+                                    <hr>
+                                    <div class="col-md-6">
+                                        <label for="validationDefault045" class="form-label">Amount of Fuel</label>
+                                        <input type="text" class="form-control" id="validationDefault045" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">update</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <footer>
+                    <h6 style="margin-top: 10px; margin-bottom: 10bx;">Designed by &#169 Capgemini</h6>
+                </footer>
+        </section>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                type: "GET",
+                url: "/api/airplane",
+                success: function(response) {
+                    console.log(response)
+                }
+            });
+        });
+        $("#airplaneForm").submit(function(e) {
+            e.preventDefault();
+            let typeOfAirplane = $("#validationDefault01").val();
+            let airplaneIdentificationPlate = $("#validationDefault02").val();
+            let currentAirfield = $("#validationDefault03").val();
+            let fuel = $("#validationDefault04").val();
+
+            let airplaneJsObj = {
+                typeOfAirplane,
+                airplaneIdentificationPlate,
+                currentAirfield,
+                fuel
+            }
+            let airplaneJSON = JSON.stringify(airplaneJsObj);
+
+            $.ajax({
+                type: "POST",
+                url: "/api/airplane",
+                data: airplaneJSON,
+                contentType: "application/json",
+                success: function(response) {
+                    console.log("response")
+
+                }
+            });
+
+        });
+
+        $("#deleteForm").submit(function(e) {
+            e.preventDefault();
+            let id = $("#validationDefault033").val();
+            console.log(id);
+            $.ajax({
+                type: "DELETE",
+                url: "/api/airplane/" + id,
+                success: function(response) {
+                    console.log("The airplane has been deleted.")
+                }
+            });
+
+        });
+
+
+        $("#airplaneUpdateForm").submit(function(e) {
+            e.preventDefault();
+            let id = $("#personId").val();
+            let typeOfAirplane = $("#validationDefault011").val();
+            let airplaneIdentificationPlate = $("#validationDefault012").val();
+            let currentAirfield = $("#validationDefault044").val();
+            let fuel = $("#validationDefault045").val();
+
+            let updateJsObj = {
+                id,
+                typeOfAirplane,
+                airplaneIdentificationPlate,
+                currentAirfield,
+                fuel
+            }
+
+            let updateJSON = JSON.stringify(updateJsObj);
+
+            $.ajax({
+                type: "PUT",
+                url: "/api/airplane",
+                data: updateJSON,
+                contentType: "application/json",
+                success: function(response) {
+                    console.log(response)
+
+                }
+            });
+        });
+        $("#modalBtn").click(function(e) {
+            e.preventDefault();
+            $('#myModal').modal('show')
+        });
+    </script>
+</body>
+
+</html>

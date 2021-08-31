@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        function getData() {
+            console.log("getting data...");
+
+            // Get the data from endpoint.
+            $.ajax({
+                url: "http://localhost:8080/api/airplane",
+                type: "get",
+                success: function(posts) {
+                    // On successful get, reload the datatable with new data.
+                    console.log(posts);
+                    $('#table').DataTable().clear();
+                    $('#table').DataTable().rows.add(posts);
+                    $('#table').DataTable().columns.adjust().draw();
+                }
+            });
+        }
+        $(document).ready(function() {
+
+            // Load DataTable with data format.
+            $('#table').DataTable({
+                columns: [{
+                    data: "id"
+                }, {
+                    data: "typeOfAirplane"
+                }, {
+                    data: "airplaneIdentificationPlate"
+                }, {
+                    data: "currentAirfield"
+                }, {
+                    data: "fuel"
+                }]
+            });
+
+            // Load first data.
+            getData();
+        });
+    </script>
+</head>
+
+<body>
+    <br>
+    <div class="container">
+
+        <div class=“row”>
+            <div class=“col-md-12”>
+                <h2>AirPort Information</h2>
+                <table id="table">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Type of Airplane </th>
+                            <th>Airplane Id plate</th>
+                            <th>Current Airfield</th>
+                            <th>Amount Of Fuel</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+</body>
+
+</html>
